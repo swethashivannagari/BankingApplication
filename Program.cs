@@ -176,7 +176,7 @@ namespace BankingApplication
                     return user;
                 }
             }
-            Console.WriteLine("\n Invalid details. please try again!");
+            Console.WriteLine("\nInvalid details. please try again!");
             return null;
         }
         private bool EmailRegistered(string email)
