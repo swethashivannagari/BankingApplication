@@ -7,6 +7,7 @@ using System.Security.AccessControl;
 
 namespace BankingApplication
 {
+    //User class to intialize the users
     public class User
     {
         public string Name { get; set; }
@@ -39,6 +40,7 @@ namespace BankingApplication
         
     }
 
+    //Account class to create bank account
     public class Account
     {
         public int AccountId { get; set; }
@@ -57,6 +59,8 @@ namespace BankingApplication
             AccountType = accountType; 
             balance= amount;
         }
+
+        //to add amount to the account
         public void Deposit(decimal amount)
         {
             if (amount <= 0) throw new ArgumentException("Deposit amount must be positive.");
@@ -65,6 +69,8 @@ namespace BankingApplication
             Console.WriteLine($"{amount} deposited Successfully..");
             
         }
+
+        //to withdraw the amount from account
         public void Withdraw(decimal amount)
         {
             if (amount <= 0) throw new ArgumentException("Withdrawal amount must be positive.");
@@ -78,10 +84,12 @@ namespace BankingApplication
 
         }
 
+        //to create transaction history, adding transaction
         private void AddTransaction(string type,decimal amount)
         {
             transactions.Add(new Transaction(type,amount));
         }
+
 
         public void generateStatement()
         {
@@ -93,6 +101,8 @@ namespace BankingApplication
             }
             Console.WriteLine($"\nCurrent Balance:Rs.{balance}");
         }
+
+        //to add interest once a month
         public void AddMonthlyInterest()
         {
             if (AccountType.Equals("Savings", StringComparison.OrdinalIgnoreCase)&&(DateTime.Now-LastInterestDate).TotalDays>=30)
@@ -110,6 +120,8 @@ namespace BankingApplication
                 Console.WriteLine("Interest has already been added this month.");
             }
         }
+
+        //to check account balance
         public void CheckBalance()
         {
             Console.WriteLine($"Current balance for Account {AccountId} is {balance}");
@@ -117,6 +129,8 @@ namespace BankingApplication
 
 
     }
+
+    //To store every transaction
     public class Transaction
     {
         public int TransactionId { get; set; }
@@ -134,10 +148,14 @@ namespace BankingApplication
             Date = DateTime.Now;
         }
     }
+
+    //Custom Exception ,When the balance is less than withdrawal amount
     public class InsufficientFundsException : ApplicationException
     {
         public InsufficientFundsException(string message) : base(message) { }
     }
+
+    //contains all the users
     public class Bank
     {
         private List<User> users = new List<User>();
@@ -173,6 +191,7 @@ namespace BankingApplication
             Bank bank = new Bank();
             User loggedUser = null;
 
+            //Main Menu
             while (true)
             {
                 
@@ -231,11 +250,12 @@ namespace BankingApplication
             return loggedUser;
         }
 
+        //Bank Operations Menu after login
         static void BankOperations(User user)
         {
             while (true)
             {
-                Console.WriteLine("Enter any key");
+                Console.WriteLine("Enter any key to continue");
                 string s=Console.ReadLine();
                 Console.WriteLine("\n***************************************************");
                 Console.WriteLine("\nBank Operations:");
