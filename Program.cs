@@ -199,27 +199,36 @@ namespace BankingApplication
                 Console.WriteLine("2.Login");
                 Console.WriteLine("3.Exit");
                 Console.WriteLine("Choose an option");
-                int choice = Convert.ToInt32(Console.ReadLine());
-                switch (choice)
+                string input = Console.ReadLine();
+                int choice;
+                if (int.TryParse(input, out choice))
                 {
-                    case 1:
-                        RegisterUser(bank);
-                        break;
-                    case 2:
-                        loggedUser=Login(bank);
-                        if (loggedUser != null)
-                        {
-                            BankOperations(loggedUser);
-                        }
-                        break;
-                    case 3:
-                        return;
-                    default:
-                        Console.WriteLine("invalid Option. Try Again.");
-                        break;
+                    switch (choice)
+                    {
+                        case 1:
+                            RegisterUser(bank);
+                            break;
+                        case 2:
+                            loggedUser = Login(bank);
+                            if (loggedUser != null)
+                            {
+                                Console.WriteLine("User Logged in Successfully");
+                                BankOperations(loggedUser);
+                            }
+                            break;
+                        case 3:
+                            return;
+                        default:
+                            Console.WriteLine("invalid Option. Try Again.");
+                            break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input! Please enter a valid number.");
                 }
 
-                
+
             }
         }
         static void RegisterUser(Bank bank)
@@ -267,35 +276,44 @@ namespace BankingApplication
                 Console.WriteLine("6.Check Balance");
                 Console.WriteLine("7.LogOut");
                 Console.WriteLine("Choose an option");
-                int choice = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine();
-                switch (choice)
-                {
-                    case 1:
-                        openAccount(user);
-                        break;
-                    case 2:
-                        depositAmount(user);
-                        break;
-                    case 3:
-                        withdrawAmount(user);
-                        break;
-                    case 4:
-                        showStatement(user);
-                        break;
-                    case 5:
-                        monthlyInterest(user);
-                        break;
-                    case 6:
-                        CheckBalance(user);
-                        break;
-                    case 7:
-                        Console.WriteLine("Logging out...");
-                        return;
-                    default:
-                        Console.WriteLine("Invalid Option");
-                        break;
+                 string input = Console.ReadLine();
+                int choice;
 
+                Console.WriteLine();
+                if (int.TryParse(input, out choice))
+                {
+                    switch (choice)
+                    {
+                        case 1:
+                            openAccount(user);
+                            break;
+                        case 2:
+                            depositAmount(user);
+                            break;
+                        case 3:
+                            withdrawAmount(user);
+                            break;
+                        case 4:
+                            showStatement(user);
+                            break;
+                        case 5:
+                            monthlyInterest(user);
+                            break;
+                        case 6:
+                            CheckBalance(user);
+                            break;
+                        case 7:
+                            Console.WriteLine("Logging out...");
+                            return;
+                        default:
+                            Console.WriteLine("Invalid Option");
+                            break;
+
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input! Please enter a valid number.");
                 }
             }
         }
